@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <meta content="text/css" http-equiv="Content-Style-Type" />
+        <title>ویرایشگر</title>
+        <link href="stylesheet.css" type="text/css" rel="stylesheet" />
+        <!--       <link href="assets/css/main.css" type="text/css" rel="stylesheet" -->
+
+        <style>
+            body, input, select, textarea {
+                color: #474747;
+                font-family:'Source Sans Pro', sans-serif;
+                font-size: 14pt;
+                font-weight: 30;
+                line-height: 1em;
+            }
+            a {
+                -moz-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+                -webkit-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+                -ms-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+                transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+                color: #37c0fb;
+                text-decoration: none;
+            }
+            a:hover {
+                color: #37c0fb;
+                border-bottom-color: transparent;
+            }
+            #footer {
+                transition: border-color 0.2s ease-in-out;
+                background: #fff;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                color: inherit;
+                display: block;
+                outline: 0;
+                text-decoration: none;
+                width: 80%;
+                margin: auto;
+            }
+            textarea {
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                -ms-appearance: none;
+                appearance: none;
+                -moz-transition: border-color 0.2s ease-in-out;
+                -webkit-transition: border-color 0.2s ease-in-out;
+                -ms-transition: border-color 0.2s ease-in-out;
+                transition: border-color 0.2s ease-in-out;
+                background: #fff;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                color: inherit;
+                display: block;
+                outline: 0;
+                padding: 0.75em;
+                text-decoration: none;
+                width: 95%;
+                line-height: 1.5em;
+            }
+            .btn {
+                color: #10F;
+                background: #DDD;
+                font-weight: normal;
+                border: 2px solid #FFF;
+                font-size: 150%;
+                direction: rtl;
+                margin-top:10px;
+                border-radius: 5px;
+            }
+            .btn:hover {
+                color: #10f;
+				border: 2px solid #EEE;
+                background: #CCC;
+            }
+            .button {
+                width: 20em;
+                height: 5em;
+            }
+            #headbar {
+                width:80%;
+                background:gray;
+                margin: auto;
+                height: 100px;
+                font-size: 20pt;
+                direction: rtl;
+                text-align: center;
+                border-top-left-radius: 5px;
+                border-top-right-radius:5px;
+                border: solid 1px #e0e0e0;
+            }
+            #headbar h1 {
+                font-family: Times;
+                font-family:'Source Sans Pro', sans-serif;
+                line-height: 0em;
+            }
+            #headbar h1 a {
+                font-size: 0.5em;
+                color:#000;
+                letter-spacing: -0.025em;
+                border: 0;
+                margin-top: 0em;
+            }
+            #headbar h2 {
+                font-family: Times;
+                color:#000;
+            }
+            #headbar h2 a {
+                font-size: 0.3em;
+                padding: 0.1em;
+                color:#000;
+            }
+            #container {
+                width:80%;
+                margin: auto;
+                margin-top: 1em;
+            }
+            #rightside {
+                float: right;
+                width:49%;
+            }
+            #leftside {
+                float:left;
+                width:49%;
+            }
+            .comments {
+                height:400px;
+                direction:rtl;
+                font-size: 12pt;
+                font-family: tahoma;
+            }
+            /* Header */
+            #header {
+                text-align: right;
+                direction: rtl;
+                padding: 0.01em 0 0 0;
+                background-color: #fff;
+            }
+            #header h1 {
+                padding: 0 0 0.75em 0;
+                margin: 0;
+            }
+            #header h1 a {
+                font-size: 0.5em;
+                letter-spacing: -0.025em;
+                border: 0;
+            }
+            #nav {
+                cursor: default;
+                background-color: #333;
+                width: 80%;
+                margin: auto;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            #nav > ul {
+                margin: 0;
+            }
+            #nav > ul > li {
+                position: relative;
+                display: inline-block;
+                margin-left: 1em;
+            }
+            #nav > ul > li a {
+                color: #c0c0c0;
+                text-decoration: none;
+                border: 0;
+                display: block;
+                padding: .5em 0.5em 0.35em 0.5em;
+            }
+            #nav > ul > li:first-child {
+                margin-left: 0;
+            }
+            #nav > ul > li:hover a {
+                color: #fff;
+            }
+            #nav > ul > li.current {
+                font-weight: 600;
+            }
+            #nav > ul > li.current:before {
+                -moz-transform: rotateZ(45deg);
+                -webkit-transform: rotateZ(45deg);
+                -ms-transform: rotateZ(45deg);
+                transform: rotateZ(45deg);
+                width: 0.75em;
+                height: 0.75em;
+                content:'';
+                display: block;
+                position: absolute;
+                bottom: -0.5em;
+                left: 50%;
+                margin-left: -0.375em;
+                background-color: #37c0fb;
+                background-image: url("images/bg01.png");
+            }
+            #nav > ul > li.current a {
+                color: #fff;
+            }
+            #nav > ul > li.active a {
+                color: #fff;
+            }
+            #nav > ul > li.active.current:before {
+                opacity: 0;
+            }
+            #nav > ul > li > ul {
+                display: none;
+            }
+        </style>
+
+        <script>
+            var persian_numbers = '۱۲۳۴۵۶۷۸۹۰';
+            var arabic_numbers = '١٢٣٤٥٦٧٨٩٠';
+            var english_numbers = '1234567890';
+
+            var arabic_regexp = new RegExp('(١|٢|٣|٤|٥|٦|٧|٨|٩|٠)', 'g');
+            var english_regexp = new RegExp('(1|2|3|4|5|6|7|8|9|0)', 'g');
+
+            function _subenglish(x) {
+                return persian_numbers[english_numbers.indexOf(x)];
+            }
+
+            function _subarabic(x) {
+                return persian_numbers[arabic_numbers.indexOf(x)];
+            }
+
+            function replace_numbers(text) {
+                text = text.replace(english_regexp, _subenglish);
+                return text.replace(arabic_regexp, _subarabic);
+            }
+
+            function saveTextAsFile() {
+                var textToWrite = document.getElementById('texteditarea').value;
+                var textFileAsBlob = new Blob([textToWrite], {
+                        type: 'text/plain'
+                    });
+                var fileNameToSaveAs = "Edited.txt";
+
+                var downloadLink = document.createElement("a");
+                downloadLink.download = fileNameToSaveAs;
+                downloadLink.innerHTML = "Download File";
+                if (window.webkitURL != null) {
+                    // Chrome allows the link to be clicked
+                    // without actually adding it to the DOM.
+                    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+                } else {
+                    // Firefox requires the link to be added to the DOM
+                    // before it can be clicked.
+                    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                    downloadLink.onclick = destroyClickedElement;
+                    downloadLink.style.display = "none";
+                    document.body.appendChild(downloadLink);
+                }
+
+                downloadLink.click();
+            }
+
+             //var button = document.getElementById('save');
+             //button.addEventListener('click', saveTextAsFile);
+
+
+
+            function editarea() {
+                var txt = document.getElementById('myTextarea').value;
+
+                txt = txt.replace(/\،/g, '، ').replace(/\./g, '. ').replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/\?/g, ' ؟ ');
+                txt = txt.replace(/\:/g, ': ').replace(/\!/g, ' ! ').replace(/\,/g, '،').replace(/\;/g, '؛').replace(/\؛/g, '؛ ');
+                txt = txt.replace(/\.{3}/g, '\u2026').replace(/\)/g, ') ').replace(/\(/g, ' (').replace(/\»/g, '» ').replace(/\«/g, ' «');
+                txt = txt.replace(/\!/g, ' !').replace(/\./g, ' .').replace(/\:/g, ' :').replace(/\؟/g, ' ؟ ').replace(/\،/g, ' ، ');
+
+                var txt_par = txt.split('\n');
+
+                var editedtext, bodytext = '';
+                var words;
+                var i, p, pre;
+                pre = '';
+                for (p = 0; p < txt_par.length; p++) {
+                    //a.trim().split(/[\s,]+/);
+                    editedtext = '';
+                    words = txt_par[p].trim().split(/[\s,]+/);
+
+                    for (i = 0; i < words.length; i++) {
+
+                        if (['ها', 'های', 'هام', 'هات', 'هاش', 'هامان', 'هاتان', 'هاشان', 'هایم', 'هایت', 'هایش', 'هایم', 'هایت', 'هایش', 'هایمان', 'هایتان', 'هایشان'].indexOf(words[i]) > -1) {
+                            editedtext = editedtext + '\u200c' + words[i];
+                        } else if (['م', 'ی', 'ند', 'یم', 'اید', 'اند', 'ایم', 'اید', 'ام', 'ای', 'اش', 'شان', 'تان', 'ات'].indexOf(words[i]) > -1) {
+                            editedtext = editedtext + '\u200c' + words[i];
+                        } else if (['،', '.', ':', '؟', '!', '؛', ')', '»'].indexOf(words[i]) > -1) {
+                            editedtext = editedtext + words[i];
+                        } else {
+                            if (['می', 'نمی'].indexOf(pre) > -1) {
+                                editedtext = editedtext + '\u200c' + words[i];
+                            } else if (['(', '«'].indexOf(pre) > -1) {
+                                editedtext = editedtext + words[i];
+                            } else
+                                editedtext = editedtext + ' ' + words[i];
+                        }
+                        pre = words[i].replace('\u200c', '');
+                    }
+
+                    editedtext = replace_numbers(editedtext);
+
+                    bodytext = bodytext + editedtext.trim().replace(/\%/g, '٪').replace(/\ه ی /g, 'هٔ ') + '\n';
+
+                }
+                document.getElementById('texteditarea').value = bodytext;
+
+            }
+        </script>
+    </head>
+
+    <body>
+
+        <div id="headbar">
+
+             <h1>
+                <a href="index.html" id="logo">ویرایشگر آنلاین</em></a>
+            </h1> 
+        </div>
+        <div id="header">
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">درباره</a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/">
+                            <img height="20" src="twitter-icon.png" />
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div id="container">
+            <div id="rightside">
+                <textarea name="textcontent" class="comments" id="myTextarea" placeholder="این">
+۱ )حرف «ي» و «ك» عربی را به فارسی تبدیل میکند.
+۲) اعداد انگلیسی رو به فارسی تبدیل میکند 1234567890 
+۳) اعداد عربی را نیز به فارسی تبدیل میکند ١٢٣٤٥٦٧٨٩٠ 
+٤) علامت های , ; ؛ ? انگلیسی را به فارسی تبدیل میکند .
+5) نیم فاصله را در برخی موارد بعد از « می» مانند می خورم ، اصلاح میکند. 
+۶) فاصله بعد از : . ، را اصلاح می کند : پایان .تست 
+۷)فاصله های اضافی را پاک میکند ولی اینترهای اضافی را تغییری نمی دهد .
+ ۸)فاصله گذاری قبل و بعد از پرانتز ها و« گیومه »را اصلاح میکند. بدون فاصله در داخل و فاصله در بیرون : ( تست )پرانتز     
+                </textarea>
+                <button onclick="editarea()" class="btn">ویرایش</button>
+                <!--<button onclick="editarea()" type="button" class="btn" value="Edit" /></button>!-->
+            </div>
+            <div id="leftside">
+                <textarea name="textcontent" class="comments" id="texteditarea"></textarea>
+                <button onclick="saveTextAsFile()" type="button" value="save" id="save" class="btn">ذخیره</button>
+
+            </div>
+        </div>
+
+
+    </body>
+
+</html>
